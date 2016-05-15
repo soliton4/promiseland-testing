@@ -1,0 +1,6 @@
+[submodule "promiseland"]
+	path = promiseland
+	url = https://github.com/soliton4/promiseland
+[submodule "test262"]
+	path = test262
+	url = https://github.com/tc39/test262

@@ -1,0 +1,25 @@
+{
+  "name": "promiseland-testing",
+  "version": "0.1.0",
+  "description": "extensive testing for promisland es6 and es5 compatibility and feature tests.",
+  "main": "./index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/soliton4/promiseland-testing.git"
+  },
+  "keywords": [
+    "promiseland"
+  ],
+  "author": {
+    "name": "Benjamin Behrens",
+    "email": "matthias.behrens@gmail.com"
+  },
+  "license": "BSD",
+  "engine": {
+    "node": ">=0.8"
+  },
+  "bugs": {
+    "url": "http://github.com/soliton4/promiseland-testing/issues"
+  },
+  "homepage": "http://promiseland.technology"
+}
