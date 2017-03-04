@@ -1,0 +1,239 @@
+var fs = require "fs";
+var cp = require('child_process');
+var yaml = require('js-yaml');
+
+var folder = "./test262/test/language";
+
+var CallbackErrorFirst = promiseland.CallbackErrorFirst;
+
+
+var breakup = false;
+
+function fsReadStr(path){
+  var cb = new CallbackErrorFirst();
+  fs.readFile(path, {encoding: "utf8"}, cb);
+  return cb.promise;
+};
+
+function fsWrite(path, content){
+  var cb = new CallbackErrorFirst();
+  fs.writeFile(path, content, cb);
+  return cb.promise;
+};
+
+var testEnvStr = *fsReadStr("./testenv.js");
+
+var harnessess = {};
+function getHarness(n){
+  if (harnessess[n]){
+    return harnessess[n];
+  };
+  harnessess[n] = *fsReadStr("./test262/harness/" + n);
+  return harnessess[n]
+};
+
+
+var runTest = function(path){
+  //breakup = true;
+  
+  console.log("running test " + path);
+  
+  var dataStr = *fsReadStr(path);
+  console.log("========================== source ==============================");
+  console.log(dataStr);
+  console.log("================================================================");
+  
+  var ystart = dataStr.indexOf("/*---");
+  var yend = dataStr.indexOf("---*/");
+  
+  var yamlStr;
+  if (ystart > -1 && yend > -1 && ystart < yend){
+    ystart += 5;
+    yamlStr = dataStr.substr(ystart, yend - ystart);
+  }else{
+    console.log("yaml not found");
+    breakup = true;
+    return;
+  };
+  
+  //console.log("============================== yaml ============================");
+  //console.log(yamlStr);
+  //console.log("================================================================");
+  
+  // Get document, or throw exception on error 
+  var doc;
+  try {
+    doc = yaml.safeLoad(yamlStr);
+  } catch (e) {
+    console.log(e);
+    breakup = true;
+    return;
+  };
+  
+  var ignoreMember = {
+    es5id: true
+  };
+  var ignoreFlags = {
+    onlyStrict: true // we are only testing strict mode
+  };
+  
+  var i;
+  var flags = [];
+  var negative = false;
+  
+  var member;
+  for (member in doc){
+    if (ignoreMember[member]){
+      continue;
+    };
+    switch(member){
+    case "description":
+      description = doc[member];
+      break;
+    case "flags":
+      {
+        flags = doc[member];
+        for (i = 0; i < flags.length; ++i){
+          if (ignoreFlags[flags[i]]){
+            continue;
+          };
+          /*switch (flags[i]){
+            case 
+          };*/
+          console.log("unknown flag: " + flags[i]);
+          breakup = true;
+          return;
+        };
+      };
+      break;
+    case "negative":
+      negative = doc[member];
+      break;
+    default:
+      console.log("unknown member: " + member);
+      console.log(doc);
+      breakup = true;
+      return;
+    };
+  };
+      
+      var testContentStr = "";
+      testContentStr += testEnvStr;
+      testContentStr += *getHarness("assert.js");
+      testContentStr += *getHarness("sta.js");
+      testContentStr += "(function(){\n\"use strict\";\n";
+      testContentStr += dataStr;
+      testContentStr += "\n})();";
+      
+      *fsWrite("./runningtest.js", testContentStr);
+      
+      var testDone = false;
+      var testCallback = new Callback();
+    var finishTest = function(){
+      if (testDone){
+        return;
+      };
+      testDone = true;
+      testCallback();
+    };
+  console.log("running test");
+    
+    var errorHappened = false;
+    var systemError = false;
+    
+    var t = cp.fork("./runningtest.js", {
+      //stdio: [0, 1, 2, 'ipc']
+      silent: true
+    });
+    console.log(t);
+    t.on('close', function(){
+      finishTest();
+    });
+    t.on('disconnect', function(){
+      finishTest();
+    });
+    t.on('error', function(){
+      errorHappened = true;
+      console.log("error event");
+      finishTest();
+    });
+    t.on('exit', function(){
+      finishTest();
+    });
+    t.on('message', function(msg){
+      if (msg.type == "print"){
+        console.log(msg.content);
+        return;
+      };
+      if (msg.type == "error"){
+        console.log(msg);
+        systemError = true;
+        finishTest();
+        return;
+      };
+      console.log(msg);
+      systemError = true;
+      finishTest();
+    });
+    t.stderr.on("data", function(p1, p2, p3){
+      console.log("stderr data");
+      console.log(p1);
+      console.log(p2);
+      console.log(p3);
+    });
+    t.stderr.on("error", function(p1, p2, p3){
+      console.log("stderr error");
+      console.log(p1);
+      console.log(p2);
+      console.log(p3);
+    });
+    
+    
+    *testCallback.promise;
+    if (systemError || errorHappened || negative){
+      breakup = true;
+      console.log("test failed");
+    }else{
+      console.log("test passed");
+    };
+      
+  
+};
+
+
+function fsStat(path){
+  var cb = new CallbackErrorFirst();
+  fs.stat(path, cb);
+  return cb.promise;
+};
+function fsReaddir(path){
+  var cb = new CallbackErrorFirst();
+  fs.readdir(path, {}, cb);
+  return cb.promise;
+};
+
+var runTests = function(path){
+  try{
+    if (breakup){
+      return;
+    };
+    var stat = *fsStat(path);
+    if (stat.isDirectory()){
+      var files = *fsReaddir(path);
+      var i = 0;
+      for (i = 0; i < files.length; ++i){
+        *runTests(path + "/" + files[i]);
+      };
+    };
+    if (stat.isFile()){
+      if (path.substr(-3) == ".js"){
+        *runTest(path);
+      };
+    };
+  }catch(e){
+    console.log(e);
+  };
+};
+
+runTests(folder);
+
