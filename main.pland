@@ -1,8 +1,11 @@
 var fs = require "fs";
+var pathModule = require "path";
+var os = require "os";
 var cp = require('child_process');
 var yaml = require('js-yaml');
+var eshost = require 'eshost';
 
-var folder = "./test262/test/language";
+var folder = "./test262/test";
 
 var CallbackErrorFirst = promiseland.CallbackErrorFirst;
 
@@ -29,19 +32,31 @@ function getHarness(n){
     return harnessess[n];
   };
   harnessess[n] = *fsReadStr("./test262/harness/" + n);
-  return harnessess[n]
+  return harnessess[n];
 };
+
+var endsWith(s, c){
+  if (s.substr(s.length - c.length, c.length) === c){
+    return true;
+  };
+};
+
 
 
 var runTest = function(path){
   //breakup = true;
   
+  if (endsWith(path, "_FIXTURE.js")){
+    console.log("ignoring " + path);
+    return true;
+  };
+  
   console.log("running test " + path);
   
   var dataStr = *fsReadStr(path);
-  console.log("========================== source ==============================");
-  console.log(dataStr);
-  console.log("================================================================");
+  //console.log("========================== source ==============================");
+  //console.log(dataStr);
+  //console.log("================================================================");
   
   var ystart = dataStr.indexOf("/*---");
   var yend = dataStr.indexOf("---*/");
@@ -66,12 +81,17 @@ var runTest = function(path){
     doc = yaml.safeLoad(yamlStr);
   } catch (e) {
     console.log(e);
-    breakup = true;
-    return;
+    //breakup = true;
+    return false;
   };
   
   var ignoreMember = {
-    es5id: true
+    es5id: true,
+    info: true,
+    esid: true,
+    es6id: true,
+    features: true,
+    author: true
   };
   var ignoreFlags = {
     onlyStrict: true // we are only testing strict mode
@@ -80,6 +100,17 @@ var runTest = function(path){
   var i;
   var flags = [];
   var negative = false;
+  
+  var printSource = function(){
+    console.log("========================== source ==============================");
+    console.log(dataStr);
+    console.log("================================================================");
+  };
+  
+  var includesStr = "";
+  var includesAr = [];
+  var isModule = false;
+  var isAsync = false;
   
   var member;
   for (member in doc){
@@ -97,9 +128,30 @@ var runTest = function(path){
           if (ignoreFlags[flags[i]]){
             continue;
           };
+          if (flags[i] === "noStrict"){
+            // we only do strict mode
+            return true;
+          };
+          if (flags[i] === "raw"){
+            // implies non strict mode, therfor no execution
+            return true;
+          };
+          if (flags[i] === "module"){
+            isModule = true;
+            continue;
+          };
+          if (flags[i] === "generated"){
+            // ?
+            continue;
+          };
+          if (flags[i] == "async"){
+            isAsync = true;
+            continue;
+          };
           /*switch (flags[i]){
             case 
           };*/
+          printSource();
           console.log("unknown flag: " + flags[i]);
           breakup = true;
           return;
@@ -109,94 +161,91 @@ var runTest = function(path){
     case "negative":
       negative = doc[member];
       break;
+      
+    case "includes":
+      includesAr = doc[member];
+      break;
+      
     default:
+      printSource();
       console.log("unknown member: " + member);
       console.log(doc);
       breakup = true;
       return;
     };
   };
-      
-      var testContentStr = "";
-      testContentStr += testEnvStr;
-      testContentStr += *getHarness("assert.js");
-      testContentStr += *getHarness("sta.js");
-      testContentStr += "(function(){\n\"use strict\";\n";
-      testContentStr += dataStr;
-      testContentStr += "\n})();";
-      
-      *fsWrite("./runningtest.js", testContentStr);
-      
-      var testDone = false;
-      var testCallback = new Callback();
-    var finishTest = function(){
-      if (testDone){
-        return;
-      };
-      testDone = true;
-      testCallback();
-    };
-  console.log("running test");
+  for (i = 0; i < includesAr.length; ++i){
+    includesStr += *getHarness(includesAr[i]);
+  };
     
-    var errorHappened = false;
-    var systemError = false;
-    
-    var t = cp.fork("./runningtest.js", {
-      //stdio: [0, 1, 2, 'ipc']
-      silent: true
-    });
-    console.log(t);
-    t.on('close', function(){
-      finishTest();
-    });
-    t.on('disconnect', function(){
-      finishTest();
-    });
-    t.on('error', function(){
-      errorHappened = true;
-      console.log("error event");
-      finishTest();
-    });
-    t.on('exit', function(){
-      finishTest();
-    });
-    t.on('message', function(msg){
-      if (msg.type == "print"){
-        console.log(msg.content);
-        return;
-      };
-      if (msg.type == "error"){
-        console.log(msg);
-        systemError = true;
-        finishTest();
-        return;
-      };
-      console.log(msg);
-      systemError = true;
-      finishTest();
-    });
-    t.stderr.on("data", function(p1, p2, p3){
-      console.log("stderr data");
-      console.log(p1);
-      console.log(p2);
-      console.log(p3);
-    });
-    t.stderr.on("error", function(p1, p2, p3){
-      console.log("stderr error");
-      console.log(p1);
-      console.log(p2);
-      console.log(p3);
-    });
-    
-    
-    *testCallback.promise;
-    if (systemError || errorHappened || negative){
-      breakup = true;
-      console.log("test failed");
+    var testContentStr = "";
+    if (isModule){
     }else{
-      console.log("test passed");
+      testContentStr += "\"use strict\"\n";
+      testContentStr += testEnvStr;
+    };
+    testContentStr += *getHarness("assert.js");
+    testContentStr += *getHarness("sta.js");
+    if (isAsync){
+      testContentStr += *getHarness("doneprintHandle.js");
+    };
+    testContentStr += includesStr;
+    if (isModule){
+      testContentStr += "require(\"" + pathModule.resolve(__dirname, path) + "\");\n";
+      console.log("module ------------------------------------------------------------------------");
+    }else{
+      //testContentStr += "(function(){\n\"use strict\";\n";
+      testContentStr += dataStr;
+      //testContentStr += "\n})();";
     };
       
+      
+  //console.log("running test");
+      //console.log("================================================= raw test code =========================================================");
+      //console.log(testContentStr);
+      //console.log("=========================================================================================================================");
+    
+    var agent = *eshost.createAgent('node', { hostPath: os.homedir() + '/.nvm/versions/node/v7.7.1/bin/node' });
+
+    try {
+      var result = *agent.evalScript(testContentStr);
+      if (!negative && result.error){
+        printSource();
+        console.log("test failed");
+        console.log(result.error);
+        //breakup = true;
+        return false;
+      };
+      if (negative && !result.error){
+        printSource();
+        console.log("test failed");
+        console.log("expected error but non ocured");
+        //breakup = true;
+        return false;
+      };
+      
+      if (isAsync){
+        //printSource();
+        //console.log(testContentStr);
+        console.log("async result:");
+        console.log(result);
+        if (result.stdout !== 'Test262:AsyncTestComplete\n'){
+          console.log("test failed");
+          return false;
+        }
+      };
+      
+      //console.log("test successful");
+      return true;
+      
+      
+    }catch(err){
+      printSource();
+      breakup = true;
+      console.log("error running test");
+      console.log(err);
+      return false;
+    };
   
 };
 
@@ -232,8 +281,11 @@ var runTests = function(path){
     };
   }catch(e){
     console.log(e);
+    breakup = true;
   };
 };
+  
 
 runTests(folder);
+//  *runTest("./test262/test/language/statements/async-function/evaluation-body-that-throws-after-await.js");
 

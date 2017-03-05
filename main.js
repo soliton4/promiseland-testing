@@ -13,14 +13,13 @@ var __requireFun = function(parModule){
         }, function(err){ returnPromise.reject(err); });
       }catch(e){ returnPromise.reject(e); };
       return returnPromise.promise;};
-    var Callback = promiseland.Callback;
-if (promiseland._hasModule({ hashStr: "f2c213208fc37fcdeab3482b8a8f0347" })){ return promiseland._getModule("f2c213208fc37fcdeab3482b8a8f0347"); };
+    if (promiseland._hasModule({ hashStr: "b9ed86dfc929eb15bbd8bb02e3b661c4" })){ return promiseland._getModule("b9ed86dfc929eb15bbd8bb02e3b661c4"); };
 var PL$1 = new __Promise();
-promiseland._registerModule({ hashStr: "f2c213208fc37fcdeab3482b8a8f0347", "module": PL$1, promising: true });
-var PL$13/*promiseland*/;try{PL$13/*promiseland*/ = promiseland;}catch(e){};
-var PL$35/*console*/;try{PL$35/*console*/ = console;}catch(e){};
-var PL$49/*description*/;try{PL$49/*description*/ = description;}catch(e){};
-var PL$56/*Callback*/;try{PL$56/*Callback*/ = Callback;}catch(e){};
+promiseland._registerModule({ hashStr: "b9ed86dfc929eb15bbd8bb02e3b661c4", "module": PL$1, promising: true });
+var PL$19/*promiseland*/;try{PL$19/*promiseland*/ = promiseland;}catch(e){};
+var PL$44/*console*/;try{PL$44/*console*/ = console;}catch(e){};
+var PL$63/*description*/;try{PL$63/*description*/ = description;}catch(e){};
+var PL$75/*__dirname*/;try{PL$75/*__dirname*/ = __dirname;}catch(e){};
 var PL$2 = (function(){
 "use strict";
 var PL$3/*promiseland exception catcher*/ = function(code){
@@ -34,393 +33,457 @@ var PL$4/*catch rejected*/ = function(e){
   PL$1.reject(e);
 };
 var PL$5/*fs*/;
-var PL$7/*cp*/;
-var PL$9/*yaml*/;
-var PL$11/*folder*/;
-var PL$12/*CallbackErrorFirst*/;
-var PL$14/*breakup*/;
-var PL$20/*testEnvStr*/;
-var PL$22/*harnessess*/;
-var PL$30/*runTest*/;
-var PL$68/*runTests*/;
-function PL$15/*fsReadStr*/(PL$16/*path*/){
+var PL$7/*pathModule*/;
+var PL$9/*os*/;
+var PL$11/*cp*/;
+var PL$13/*yaml*/;
+var PL$15/*eshost*/;
+var PL$17/*folder*/;
+var PL$18/*CallbackErrorFirst*/;
+var PL$20/*breakup*/;
+var PL$26/*testEnvStr*/;
+var PL$28/*harnessess*/;
+var PL$39/*runTest*/;
+var PL$87/*runTests*/;
+function PL$21/*fsReadStr*/(PL$22/*path*/){
 
   ;
-  var PL$17/*cb*/ = new PL$12/*CallbackErrorFirst*/();
+  var PL$23/*cb*/ = new PL$18/*CallbackErrorFirst*/();
   ;
-  PL$5/*fs*/["readFile"](PL$16/*path*/, {
+  PL$5/*fs*/["readFile"](PL$22/*path*/, {
     "encoding": "utf8"
-  }, PL$17/*cb*/);
-  return PL$17/*cb*/["promise"];
+  }, PL$23/*cb*/);
+  return PL$23/*cb*/["promise"];
   ;};
-function PL$18/*fsWrite*/(PL$16/*path*/, PL$19/*content*/){
+function PL$24/*fsWrite*/(PL$22/*path*/, PL$25/*content*/){
 
   ;
-  var PL$17/*cb*/ = new PL$12/*CallbackErrorFirst*/();
+  var PL$23/*cb*/ = new PL$18/*CallbackErrorFirst*/();
   ;
-  PL$5/*fs*/["writeFile"](PL$16/*path*/, PL$19/*content*/, PL$17/*cb*/);
-  return PL$17/*cb*/["promise"];
+  PL$5/*fs*/["writeFile"](PL$22/*path*/, PL$25/*content*/, PL$23/*cb*/);
+  return PL$23/*cb*/["promise"];
   ;};
-function PL$23/*getHarness*/(PL$24/*n*/){
-var PL$25 = new __Promise();
-var PL$27/*promiseland exception catcher*/ = function(code){
+function PL$29/*getHarness*/(PL$30/*n*/){
+var PL$31 = new __Promise();
+var PL$33/*promiseland exception catcher*/ = function(code){
   return function(res){
     try{ code(res); }catch(e){
-      PL$25.reject(e);
+      PL$31.reject(e);
     };
   };
 };
-var PL$28/*catch rejected*/ = function(e){
-  PL$25.reject(e);
+var PL$34/*catch rejected*/ = function(e){
+  PL$31.reject(e);
 };
-PL$27/*promiseland exception catcher*/(function(){
+PL$33/*promiseland exception catcher*/(function(){
 
   ;
-  if(PL$22/*harnessess*/[PL$24/*n*/]){
-    PL$25.resolve(PL$22/*harnessess*/[PL$24/*n*/]); return;
+  if(PL$28/*harnessess*/[PL$30/*n*/]){
+    PL$31.resolve(PL$28/*harnessess*/[PL$30/*n*/]); return;
   };
   ;
-  PL$15/*fsReadStr*/(("./test262/harness/" + PL$24/*n*/)).then(PL$27/*promiseland exception catcher*/(function(PL$29){PL$22/*harnessess*/[PL$24/*n*/] = PL$29;
-  PL$25.resolve(PL$22/*harnessess*/[PL$24/*n*/]); return;
-  PL$25.resolve(); return;}), PL$28/*catch rejected*/);
+  PL$21/*fsReadStr*/(("./test262/harness/" + PL$30/*n*/)).then(PL$33/*promiseland exception catcher*/(function(PL$35){PL$28/*harnessess*/[PL$30/*n*/] = PL$35;
+  PL$31.resolve(PL$28/*harnessess*/[PL$30/*n*/]); return;
+  PL$31.resolve(); return;}), PL$34/*catch rejected*/);
   ;
-})();return PL$25;
+})();return PL$31;
 };
-function PL$66/*fsStat*/(PL$16/*path*/){
+function PL$36/*endsWith*/(PL$37/*s*/, PL$38/*c*/){
 
   ;
-  var PL$17/*cb*/ = new PL$12/*CallbackErrorFirst*/();
+  if((PL$37/*s*/["substr"]((PL$37/*s*/["length"] - PL$38/*c*/["length"]), PL$38/*c*/["length"]) === PL$38/*c*/)){
+    return true;
+  };
   ;
-  PL$5/*fs*/["stat"](PL$16/*path*/, PL$17/*cb*/);
-  return PL$17/*cb*/["promise"];
   ;};
-function PL$67/*fsReaddir*/(PL$16/*path*/){
+function PL$85/*fsStat*/(PL$22/*path*/){
 
   ;
-  var PL$17/*cb*/ = new PL$12/*CallbackErrorFirst*/();
+  var PL$23/*cb*/ = new PL$18/*CallbackErrorFirst*/();
   ;
-  PL$5/*fs*/["readdir"](PL$16/*path*/, {
+  PL$5/*fs*/["stat"](PL$22/*path*/, PL$23/*cb*/);
+  return PL$23/*cb*/["promise"];
+  ;};
+function PL$86/*fsReaddir*/(PL$22/*path*/){
+
+  ;
+  var PL$23/*cb*/ = new PL$18/*CallbackErrorFirst*/();
+  ;
+  PL$5/*fs*/["readdir"](PL$22/*path*/, {
     
-  }, PL$17/*cb*/);
-  return PL$17/*cb*/["promise"];
+  }, PL$23/*cb*/);
+  return PL$23/*cb*/["promise"];
   ;};
 PL$3/*promiseland exception catcher*/(function(){
 
   ;
   __requireFun("fs").then(PL$3/*promiseland exception catcher*/(function(PL$6){PL$5/*fs*/ = PL$6;
-  __requireFun("child_process").then(PL$3/*promiseland exception catcher*/(function(PL$8){PL$7/*cp*/ = PL$8;
-  __requireFun("js-yaml").then(PL$3/*promiseland exception catcher*/(function(PL$10){PL$9/*yaml*/ = PL$10;
-  PL$11/*folder*/ = "./test262/test/language";
-  PL$12/*CallbackErrorFirst*/ = PL$13/*promiseland*/["CallbackErrorFirst"];
-  PL$14/*breakup*/ = false;
+  __requireFun("path").then(PL$3/*promiseland exception catcher*/(function(PL$8){PL$7/*pathModule*/ = PL$8;
+  __requireFun("os").then(PL$3/*promiseland exception catcher*/(function(PL$10){PL$9/*os*/ = PL$10;
+  __requireFun("child_process").then(PL$3/*promiseland exception catcher*/(function(PL$12){PL$11/*cp*/ = PL$12;
+  __requireFun("js-yaml").then(PL$3/*promiseland exception catcher*/(function(PL$14){PL$13/*yaml*/ = PL$14;
+  __requireFun("eshost").then(PL$3/*promiseland exception catcher*/(function(PL$16){PL$15/*eshost*/ = PL$16;
+  PL$17/*folder*/ = "./test262/test";
+  PL$18/*CallbackErrorFirst*/ = PL$19/*promiseland*/["CallbackErrorFirst"];
+  PL$20/*breakup*/ = false;
   /* function fsReadStr (){} - hoisted */;
   ;
   /* function fsWrite (){} - hoisted */;
   ;
-  PL$15/*fsReadStr*/("./testenv.js").then(PL$3/*promiseland exception catcher*/(function(PL$21){PL$20/*testEnvStr*/ = PL$21;
-  PL$22/*harnessess*/ = {
+  PL$21/*fsReadStr*/("./testenv.js").then(PL$3/*promiseland exception catcher*/(function(PL$27){PL$26/*testEnvStr*/ = PL$27;
+  PL$28/*harnessess*/ = {
     
   };
   /* function getHarness (){} - hoisted */;
   ;
-  PL$30/*runTest*/ = (function(PL$16/*path*/){
-  var PL$31 = new __Promise();
-  var PL$33/*promiseland exception catcher*/ = function(code){
+  /* function endsWith (){} - hoisted */;
+  ;
+  PL$39/*runTest*/ = (function(PL$22/*path*/){
+  var PL$40 = new __Promise();
+  var PL$42/*promiseland exception catcher*/ = function(code){
     return function(res){
       try{ code(res); }catch(e){
-        PL$31.reject(e);
+        PL$40.reject(e);
       };
     };
   };
-  var PL$34/*catch rejected*/ = function(e){
-    PL$31.reject(e);
+  var PL$43/*catch rejected*/ = function(e){
+    PL$40.reject(e);
   };
-  var PL$36/*dataStr*/;
-  var PL$38/*ystart*/;
-  var PL$39/*yend*/;
-  var PL$40/*yamlStr*/;
-  var PL$41/*doc*/;
-  var PL$43/*ignoreMember*/;
-  var PL$44/*ignoreFlags*/;
-  var PL$45/*i*/;
-  var PL$46/*flags*/;
-  var PL$47/*negative*/;
-  var PL$48/*member*/;
-  var PL$50/*testContentStr*/;
-  var PL$54/*testDone*/;
-  var PL$55/*testCallback*/;
-  var PL$57/*finishTest*/;
-  var PL$58/*errorHappened*/;
-  var PL$59/*systemError*/;
-  var PL$60/*t*/;
-  PL$33/*promiseland exception catcher*/(function(){
+  var PL$45/*dataStr*/;
+  var PL$47/*ystart*/;
+  var PL$48/*yend*/;
+  var PL$49/*yamlStr*/;
+  var PL$50/*doc*/;
+  var PL$52/*ignoreMember*/;
+  var PL$53/*ignoreFlags*/;
+  var PL$54/*i*/;
+  var PL$55/*flags*/;
+  var PL$56/*negative*/;
+  var PL$57/*printSource*/;
+  var PL$58/*includesStr*/;
+  var PL$59/*includesAr*/;
+  var PL$60/*isModule*/;
+  var PL$61/*isAsync*/;
+  var PL$62/*member*/;
+  var PL$69/*testContentStr*/;
+  var PL$76/*agent*/;
+  var PL$82/*result*/;
+  PL$42/*promiseland exception catcher*/(function(){
   
     ;
-    PL$35/*console*/["log"](("running test " + PL$16/*path*/));
-    PL$15/*fsReadStr*/(PL$16/*path*/).then(PL$33/*promiseland exception catcher*/(function(PL$37){PL$36/*dataStr*/ = PL$37;
-    PL$35/*console*/["log"]("========================== source ==============================");
-    PL$35/*console*/["log"](PL$36/*dataStr*/);
-    PL$35/*console*/["log"]("================================================================");
-    PL$38/*ystart*/ = PL$36/*dataStr*/["indexOf"]("/*---");
-    PL$39/*yend*/ = PL$36/*dataStr*/["indexOf"]("---*/");
-    PL$40/*yamlStr*/;
-    if((((PL$38/*ystart*/ > - 1) && (PL$39/*yend*/ > - 1)) && (PL$38/*ystart*/ < PL$39/*yend*/))){
-      PL$38/*ystart*/ += 5;
-      PL$40/*yamlStr*/ = PL$36/*dataStr*/["substr"](PL$38/*ystart*/, (PL$39/*yend*/ - PL$38/*ystart*/));
-    }else{
-    PL$35/*console*/["log"]("yaml not found");
-    PL$14/*breakup*/ = true;
-    PL$31.resolve(); return;
+    if(PL$36/*endsWith*/(PL$22/*path*/, "_FIXTURE.js")){
+      PL$44/*console*/["log"](("ignoring " + PL$22/*path*/));
+      PL$40.resolve(true); return;
     };
     ;
-    PL$41/*doc*/;
+    PL$44/*console*/["log"](("running test " + PL$22/*path*/));
+    PL$21/*fsReadStr*/(PL$22/*path*/).then(PL$42/*promiseland exception catcher*/(function(PL$46){PL$45/*dataStr*/ = PL$46;
+    PL$47/*ystart*/ = PL$45/*dataStr*/["indexOf"]("/*---");
+    PL$48/*yend*/ = PL$45/*dataStr*/["indexOf"]("---*/");
+    PL$49/*yamlStr*/;
+    if((((PL$47/*ystart*/ > - 1) && (PL$48/*yend*/ > - 1)) && (PL$47/*ystart*/ < PL$48/*yend*/))){
+      PL$47/*ystart*/ += 5;
+      PL$49/*yamlStr*/ = PL$45/*dataStr*/["substr"](PL$47/*ystart*/, (PL$48/*yend*/ - PL$47/*ystart*/));
+    }else{
+    PL$44/*console*/["log"]("yaml not found");
+    PL$20/*breakup*/ = true;
+    PL$40.resolve(); return;
+    };
+    ;
+    PL$50/*doc*/;
     try
     {
-      PL$41/*doc*/ = PL$9/*yaml*/["safeLoad"](PL$40/*yamlStr*/);}catch(PL$42/*e*/){
-      PL$35/*console*/["log"](PL$42/*e*/);
-      PL$14/*breakup*/ = true;
-      PL$31.resolve(); return;};
+      PL$50/*doc*/ = PL$13/*yaml*/["safeLoad"](PL$49/*yamlStr*/);}catch(PL$51/*e*/){
+      PL$44/*console*/["log"](PL$51/*e*/);
+      PL$40.resolve(false); return;};
     ;
-    PL$43/*ignoreMember*/ = {
-      "es5id": true
+    PL$52/*ignoreMember*/ = {
+      "es5id": true,
+      "info": true,
+      "esid": true,
+      "es6id": true,
+      "features": true,
+      "author": true
     };
-    PL$44/*ignoreFlags*/ = {
+    PL$53/*ignoreFlags*/ = {
       "onlyStrict": true
     };
-    PL$45/*i*/;
-    PL$46/*flags*/ = [
+    PL$54/*i*/;
+    PL$55/*flags*/ = [
       
     ];
-    PL$47/*negative*/ = false;
-    PL$48/*member*/;
-    for(PL$48/*member*/ in PL$41/*doc*/){
-      if(PL$43/*ignoreMember*/[PL$48/*member*/]){
+    PL$56/*negative*/ = false;
+    PL$57/*printSource*/ = (function(){
+    
+      ;
+      PL$44/*console*/["log"]("========================== source ==============================");
+      PL$44/*console*/["log"](PL$45/*dataStr*/);
+      PL$44/*console*/["log"]("================================================================");
+      ;});
+    PL$58/*includesStr*/ = "";
+    PL$59/*includesAr*/ = [
+      
+    ];
+    PL$60/*isModule*/ = false;
+    PL$61/*isAsync*/ = false;
+    PL$62/*member*/;
+    for(PL$62/*member*/ in PL$50/*doc*/){
+      if(PL$52/*ignoreMember*/[PL$62/*member*/]){
         continue;;
       };
       ;
-      switch (PL$48/*member*/){
+      switch (PL$62/*member*/){
         case "description":
           
-          PL$49/*description*/ = PL$41/*doc*/[PL$48/*member*/];
+          PL$63/*description*/ = PL$50/*doc*/[PL$62/*member*/];
           break;;
         case "flags":
           
           {
-            PL$46/*flags*/ = PL$41/*doc*/[PL$48/*member*/];
-            for(PL$45/*i*/ = 0;(PL$45/*i*/ < PL$46/*flags*/["length"]);++PL$45/*i*/){{
-              if(PL$44/*ignoreFlags*/[PL$46/*flags*/[PL$45/*i*/]]){
+            PL$55/*flags*/ = PL$50/*doc*/[PL$62/*member*/];
+            for(PL$54/*i*/ = 0;(PL$54/*i*/ < PL$55/*flags*/["length"]);++PL$54/*i*/){{
+              if(PL$53/*ignoreFlags*/[PL$55/*flags*/[PL$54/*i*/]]){
                 continue;;
               };
               ;
-              PL$35/*console*/["log"](("unknown flag: " + PL$46/*flags*/[PL$45/*i*/]));
-              PL$14/*breakup*/ = true;
-              PL$31.resolve(); return;}};
+              if((PL$55/*flags*/[PL$54/*i*/] === "noStrict")){
+                PL$40.resolve(true); return;
+              };
+              ;
+              if((PL$55/*flags*/[PL$54/*i*/] === "raw")){
+                PL$40.resolve(true); return;
+              };
+              ;
+              if((PL$55/*flags*/[PL$54/*i*/] === "module")){
+                PL$60/*isModule*/ = true;
+                continue;;
+              };
+              ;
+              if((PL$55/*flags*/[PL$54/*i*/] === "generated")){
+                continue;;
+              };
+              ;
+              if((PL$55/*flags*/[PL$54/*i*/] == "async")){
+                PL$61/*isAsync*/ = true;
+                continue;;
+              };
+              ;
+              PL$57/*printSource*/();
+              PL$44/*console*/["log"](("unknown flag: " + PL$55/*flags*/[PL$54/*i*/]));
+              PL$20/*breakup*/ = true;
+              PL$40.resolve(); return;}};
             ;};
           ;
           break;;
         case "negative":
           
-          PL$47/*negative*/ = PL$41/*doc*/[PL$48/*member*/];
+          PL$56/*negative*/ = PL$50/*doc*/[PL$62/*member*/];
+          break;;
+        case "includes":
+          
+          PL$59/*includesAr*/ = PL$50/*doc*/[PL$62/*member*/];
           break;;
         default:
           
-          PL$35/*console*/["log"](("unknown member: " + PL$48/*member*/));
-          PL$35/*console*/["log"](PL$41/*doc*/);
-          PL$14/*breakup*/ = true;
-          PL$31.resolve(); return;
+          PL$57/*printSource*/();
+          PL$44/*console*/["log"](("unknown member: " + PL$62/*member*/));
+          PL$44/*console*/["log"](PL$50/*doc*/);
+          PL$20/*breakup*/ = true;
+          PL$40.resolve(); return;
         
       };
       ;};
     ;
-    PL$50/*testContentStr*/ = "";
-    PL$50/*testContentStr*/ += PL$20/*testEnvStr*/;
-    PL$23/*getHarness*/("assert.js").then(PL$33/*promiseland exception catcher*/(function(PL$51){PL$50/*testContentStr*/ += PL$51;
-    PL$23/*getHarness*/("sta.js").then(PL$33/*promiseland exception catcher*/(function(PL$52){PL$50/*testContentStr*/ += PL$52;
-    PL$50/*testContentStr*/ += "(function(){\n\"use strict\";\n";
-    PL$50/*testContentStr*/ += PL$36/*dataStr*/;
-    PL$50/*testContentStr*/ += "\n})();";
-    PL$18/*fsWrite*/("./runningtest.js", PL$50/*testContentStr*/).then(PL$33/*promiseland exception catcher*/(function(PL$53){PL$53;
-    PL$54/*testDone*/ = false;
-    PL$55/*testCallback*/ = new PL$56/*Callback*/();
-    PL$57/*finishTest*/ = (function(){
+    PL$54/*i*/ = 0;var PL$65 = new __Promise();
+    var PL$64 = function(){var PL$66 = new __Promise();
+    if((PL$54/*i*/ < PL$59/*includesAr*/["length"])){
+    PL$29/*getHarness*/(PL$59/*includesAr*/[PL$54/*i*/]).then(PL$42/*promiseland exception catcher*/(function(PL$67){PL$58/*includesStr*/ += PL$67;
+    PL$66.resolve(true); return PL$66; /* continue */
+    ;}), PL$43/*catch rejected*/);
+    ;}else{
+    PL$66.resolve(false); return PL$66; /* break */
     
-      ;
-      if(PL$54/*testDone*/){
-        return;
-      };
-      ;
-      PL$54/*testDone*/ = true;
-      PL$55/*testCallback*/();
-      ;});
-    PL$35/*console*/["log"]("running test");
-    PL$58/*errorHappened*/ = false;
-    PL$59/*systemError*/ = false;
-    PL$60/*t*/ = PL$7/*cp*/["fork"]("./runningtest.js", {
-      "silent": true
+    };
+    PL$66;return PL$66;
+    };
+    var PL$68 = function(){PL$64().then(function(contLoop){
+    if (contLoop){++PL$54/*i*/;PL$68();}else{PL$65.resolve();};
     });
-    PL$35/*console*/["log"](PL$60/*t*/);
-    PL$60/*t*/["on"]("close", (function(){
-    
-      ;
-      PL$57/*finishTest*/();
-      ;}));
-    PL$60/*t*/["on"]("disconnect", (function(){
-    
-      ;
-      PL$57/*finishTest*/();
-      ;}));
-    PL$60/*t*/["on"]("error", (function(){
-    
-      ;
-      PL$58/*errorHappened*/ = true;
-      PL$35/*console*/["log"]("error event");
-      PL$57/*finishTest*/();
-      ;}));
-    PL$60/*t*/["on"]("exit", (function(){
-    
-      ;
-      PL$57/*finishTest*/();
-      ;}));
-    PL$60/*t*/["on"]("message", (function(PL$61/*msg*/){
-    
-      ;
-      if((PL$61/*msg*/["type"] == "print")){
-        PL$35/*console*/["log"](PL$61/*msg*/["content"]);
-        return;
-      };
-      ;
-      if((PL$61/*msg*/["type"] == "error")){
-        PL$35/*console*/["log"](PL$61/*msg*/);
-        PL$59/*systemError*/ = true;
-        PL$57/*finishTest*/();
-        return;
-      };
-      ;
-      PL$35/*console*/["log"](PL$61/*msg*/);
-      PL$59/*systemError*/ = true;
-      PL$57/*finishTest*/();
-      ;}));
-    PL$60/*t*/["stderr"]["on"]("data", (function(PL$62/*p1*/, PL$63/*p2*/, PL$64/*p3*/){
-    
-      ;
-      PL$35/*console*/["log"]("stderr data");
-      PL$35/*console*/["log"](PL$62/*p1*/);
-      PL$35/*console*/["log"](PL$63/*p2*/);
-      PL$35/*console*/["log"](PL$64/*p3*/);
-      ;}));
-    PL$60/*t*/["stderr"]["on"]("error", (function(PL$62/*p1*/, PL$63/*p2*/, PL$64/*p3*/){
-    
-      ;
-      PL$35/*console*/["log"]("stderr error");
-      PL$35/*console*/["log"](PL$62/*p1*/);
-      PL$35/*console*/["log"](PL$63/*p2*/);
-      PL$35/*console*/["log"](PL$64/*p3*/);
-      ;}));
-    PL$55/*testCallback*/["promise"].then(PL$33/*promiseland exception catcher*/(function(PL$65){PL$65;
-    if(((PL$59/*systemError*/ || PL$58/*errorHappened*/) || PL$47/*negative*/)){
-      PL$14/*breakup*/ = true;
-      PL$35/*console*/["log"]("test failed");
+    };
+    PL$68();
+    PL$65.then(function(){;
+    ;
+    PL$69/*testContentStr*/ = "";
+    if(PL$60/*isModule*/){
     }else{
-    PL$35/*console*/["log"]("test passed");
+    PL$69/*testContentStr*/ += "\"use strict\"\n";
+    PL$69/*testContentStr*/ += PL$26/*testEnvStr*/;
     };
     ;
-    PL$31.resolve(); return;}), PL$34/*catch rejected*/);
-    ;}), PL$34/*catch rejected*/);
-    ;}), PL$34/*catch rejected*/);
-    ;}), PL$34/*catch rejected*/);
-    ;}), PL$34/*catch rejected*/);
+    PL$29/*getHarness*/("assert.js").then(PL$42/*promiseland exception catcher*/(function(PL$70){PL$69/*testContentStr*/ += PL$70;
+    PL$29/*getHarness*/("sta.js").then(PL$42/*promiseland exception catcher*/(function(PL$71){PL$69/*testContentStr*/ += PL$71;
+    
+    var PL$72 = new __Promise();if(PL$61/*isAsync*/){
+      PL$29/*getHarness*/("doneprintHandle.js").then(PL$42/*promiseland exception catcher*/(function(PL$73){PL$69/*testContentStr*/ += PL$73;
+      PL$72.resolve();;}), PL$43/*catch rejected*/);
+      ;
+    }else{PL$72.resolve();
+    };PL$72.then(PL$42/*promiseland exception catcher*/(function(PL$74){PL$74;;
     ;
-  })();return PL$31;
+    PL$69/*testContentStr*/ += PL$58/*includesStr*/;
+    if(PL$60/*isModule*/){
+      PL$69/*testContentStr*/ += (("require(\"" + PL$7/*pathModule*/["resolve"](PL$75/*__dirname*/, PL$22/*path*/)) + "\");\n");
+      PL$44/*console*/["log"]("module ------------------------------------------------------------------------");
+    }else{
+    PL$69/*testContentStr*/ += PL$45/*dataStr*/;
+    };
+    ;
+    PL$15/*eshost*/["createAgent"]("node", {
+      "hostPath": (PL$9/*os*/["homedir"]() + "/.nvm/versions/node/v7.7.1/bin/node")
+    }).then(PL$42/*promiseland exception catcher*/(function(PL$77){PL$76/*agent*/ = PL$77;
+    var PL$78 = new __Promise();
+    var PL$79 = new __Promise();
+    var PL$80/*try catch*/ = function(code){ return function(res){ try{code(res);}catch(e){ PL$79.resolve(e); }; }; };
+    var PL$81 = function(e){ PL$79.resolve(e); };
+    PL$80/*try catch*/(function(){
+      PL$76/*agent*/["evalScript"](PL$69/*testContentStr*/).then(PL$80/*try catch*/(function(PL$83){PL$82/*result*/ = PL$83;
+      if((! PL$56/*negative*/ && PL$82/*result*/["error"])){
+        PL$57/*printSource*/();
+        PL$44/*console*/["log"]("test failed");
+        PL$44/*console*/["log"](PL$82/*result*/["error"]);
+        PL$40.resolve(false); return;
+      };
+      ;
+      if((PL$56/*negative*/ && ! PL$82/*result*/["error"])){
+        PL$57/*printSource*/();
+        PL$44/*console*/["log"]("test failed");
+        PL$44/*console*/["log"]("expected error but non ocured");
+        PL$40.resolve(false); return;
+      };
+      ;
+      if(PL$61/*isAsync*/){
+        PL$44/*console*/["log"]("async result:");
+        PL$44/*console*/["log"](PL$82/*result*/);
+        if((PL$82/*result*/["stdout"] !== "Test262:AsyncTestComplete\n")){
+          PL$44/*console*/["log"]("test failed");
+          PL$40.resolve(false); return;
+        };
+      };
+      ;
+      PL$40.resolve(true); return;
+      PL$78.resolve();}), PL$81);
+    ;})();
+    PL$79.then(PL$42/*promiseland exception catcher*/(function(PL$84/*err*/){
+      PL$57/*printSource*/();
+      PL$20/*breakup*/ = true;
+      PL$44/*console*/["log"]("error running test");
+      PL$44/*console*/["log"](PL$84/*err*/);
+      PL$40.resolve(false); return;
+      PL$78.resolve();;}));
+    PL$78.then(PL$42/*promiseland exception catcher*/(function(){;
+    ;
+    PL$40.resolve(); return;}), PL$43/*catch rejected*/)}), PL$43/*catch rejected*/);
+    ;}), PL$43/*catch rejected*/);
+    ;}), PL$43/*catch rejected*/);
+    ;}), PL$43/*catch rejected*/);
+    ;});}), PL$43/*catch rejected*/);
+    ;
+  })();return PL$40;
   });
   /* function fsStat (){} - hoisted */;
   ;
   /* function fsReaddir (){} - hoisted */;
   ;
-  PL$68/*runTests*/ = (function(PL$16/*path*/){
-  var PL$69 = new __Promise();
-  var PL$71/*promiseland exception catcher*/ = function(code){
+  PL$87/*runTests*/ = (function(PL$22/*path*/){
+  var PL$88 = new __Promise();
+  var PL$90/*promiseland exception catcher*/ = function(code){
     return function(res){
       try{ code(res); }catch(e){
-        PL$69.reject(e);
+        PL$88.reject(e);
       };
     };
   };
-  var PL$72/*catch rejected*/ = function(e){
-    PL$69.reject(e);
+  var PL$91/*catch rejected*/ = function(e){
+    PL$88.reject(e);
   };
-  var PL$77/*stat*/;
-  var PL$80/*files*/;
-  var PL$45/*i*/;
-  PL$71/*promiseland exception catcher*/(function(){
+  var PL$96/*stat*/;
+  var PL$99/*files*/;
+  var PL$54/*i*/;
+  PL$90/*promiseland exception catcher*/(function(){
   
     ;
-    var PL$73 = new __Promise();
-    var PL$74 = new __Promise();
-    var PL$75/*try catch*/ = function(code){ return function(res){ try{code(res);}catch(e){ PL$74.resolve(e); }; }; };
-    var PL$76 = function(e){ PL$74.resolve(e); };
-    PL$75/*try catch*/(function(){
-      if(PL$14/*breakup*/){
-        PL$69.resolve(); return;
+    var PL$92 = new __Promise();
+    var PL$93 = new __Promise();
+    var PL$94/*try catch*/ = function(code){ return function(res){ try{code(res);}catch(e){ PL$93.resolve(e); }; }; };
+    var PL$95 = function(e){ PL$93.resolve(e); };
+    PL$94/*try catch*/(function(){
+      if(PL$20/*breakup*/){
+        PL$88.resolve(); return;
       };
       ;
-      PL$66/*fsStat*/(PL$16/*path*/).then(PL$75/*try catch*/(function(PL$78){PL$77/*stat*/ = PL$78;
+      PL$85/*fsStat*/(PL$22/*path*/).then(PL$94/*try catch*/(function(PL$97){PL$96/*stat*/ = PL$97;
       
-      var PL$79 = new __Promise();if(PL$77/*stat*/["isDirectory"]()){
-        PL$67/*fsReaddir*/(PL$16/*path*/).then(PL$75/*try catch*/(function(PL$81){PL$80/*files*/ = PL$81;
-        PL$45/*i*/ = 0;
-        PL$45/*i*/ = 0;var PL$83 = new __Promise();
-        var PL$82 = function(){var PL$84 = new __Promise();
-        if((PL$45/*i*/ < PL$80/*files*/["length"])){
-        PL$68/*runTests*/(((PL$16/*path*/ + "/") + PL$80/*files*/[PL$45/*i*/])).then(PL$75/*try catch*/(function(PL$85){PL$85;
-        PL$84.resolve(true); return PL$84; /* continue */
-        ;}), PL$76);
+      var PL$98 = new __Promise();if(PL$96/*stat*/["isDirectory"]()){
+        PL$86/*fsReaddir*/(PL$22/*path*/).then(PL$94/*try catch*/(function(PL$100){PL$99/*files*/ = PL$100;
+        PL$54/*i*/ = 0;
+        PL$54/*i*/ = 0;var PL$102 = new __Promise();
+        var PL$101 = function(){var PL$103 = new __Promise();
+        if((PL$54/*i*/ < PL$99/*files*/["length"])){
+        PL$87/*runTests*/(((PL$22/*path*/ + "/") + PL$99/*files*/[PL$54/*i*/])).then(PL$94/*try catch*/(function(PL$104){PL$104;
+        PL$103.resolve(true); return PL$103; /* continue */
+        ;}), PL$95);
         ;}else{
-        PL$84.resolve(false); return PL$84; /* break */
+        PL$103.resolve(false); return PL$103; /* break */
         
         };
-        PL$84;return PL$84;
+        PL$103;return PL$103;
         };
-        var PL$86 = function(){PL$82().then(function(contLoop){
-        if (contLoop){++PL$45/*i*/;PL$86();}else{PL$83.resolve();};
+        var PL$105 = function(){PL$101().then(function(contLoop){
+        if (contLoop){++PL$54/*i*/;PL$105();}else{PL$102.resolve();};
         });
         };
-        PL$86();
-        PL$83.then(function(){;
+        PL$105();
+        PL$102.then(function(){;
         ;
-        PL$79.resolve();;});}), PL$76);
+        PL$98.resolve();;});}), PL$95);
         ;
-      }else{PL$79.resolve();
-      };PL$79.then(PL$75/*try catch*/(function(PL$87){PL$87;;
+      }else{PL$98.resolve();
+      };PL$98.then(PL$94/*try catch*/(function(PL$106){PL$106;;
       ;
       
-      var PL$88 = new __Promise();if(PL$77/*stat*/["isFile"]()){
+      var PL$107 = new __Promise();if(PL$96/*stat*/["isFile"]()){
         
-        var PL$89 = new __Promise();if((PL$16/*path*/["substr"](- 3) == ".js")){
-          PL$30/*runTest*/(PL$16/*path*/).then(PL$75/*try catch*/(function(PL$90){PL$90;
-          PL$89.resolve();;}), PL$76);
+        var PL$108 = new __Promise();if((PL$22/*path*/["substr"](- 3) == ".js")){
+          PL$39/*runTest*/(PL$22/*path*/).then(PL$94/*try catch*/(function(PL$109){PL$109;
+          PL$108.resolve();;}), PL$95);
           ;
-        }else{PL$89.resolve();
-        };PL$89.then(PL$75/*try catch*/(function(PL$91){PL$91;;
+        }else{PL$108.resolve();
+        };PL$108.then(PL$94/*try catch*/(function(PL$110){PL$110;;
         ;
-        PL$88.resolve();;}), PL$76);
+        PL$107.resolve();;}), PL$95);
         ;
-      }else{PL$88.resolve();
-      };PL$88.then(PL$75/*try catch*/(function(PL$92){PL$92;;
+      }else{PL$107.resolve();
+      };PL$107.then(PL$94/*try catch*/(function(PL$111){PL$111;;
       ;
-      PL$73.resolve();}), PL$76);
-    ;}), PL$76);
-    ;}), PL$76);
+      PL$92.resolve();}), PL$95);
+    ;}), PL$95);
+    ;}), PL$95);
     ;})();
-    PL$74.then(PL$71/*promiseland exception catcher*/(function(PL$42/*e*/){
-      PL$35/*console*/["log"](PL$42/*e*/);
-      PL$73.resolve();;}));
-    PL$73.then(PL$71/*promiseland exception catcher*/(function(){;
+    PL$93.then(PL$90/*promiseland exception catcher*/(function(PL$51/*e*/){
+      PL$44/*console*/["log"](PL$51/*e*/);
+      PL$20/*breakup*/ = true;
+      PL$92.resolve();;}));
+    PL$92.then(PL$90/*promiseland exception catcher*/(function(){;
     ;
-    PL$69.resolve(); return;}), PL$72/*catch rejected*/)
-  })();return PL$69;
+    PL$88.resolve(); return;}), PL$91/*catch rejected*/)
+  })();return PL$88;
   });
-  PL$68/*runTests*/(PL$11/*folder*/);
+  PL$87/*runTests*/(PL$17/*folder*/);
   PL$1.resolve(); return;}), PL$4/*catch rejected*/);
+  ;}), PL$4/*catch rejected*/);
+  ;}), PL$4/*catch rejected*/);
+  ;}), PL$4/*catch rejected*/);
   ;}), PL$4/*catch rejected*/);
   ;}), PL$4/*catch rejected*/);
   ;}), PL$4/*catch rejected*/);
